@@ -1,8 +1,23 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const [passWord, setPassWord] = useState<string>("");
+  const [strength, setStrength] = useState<number>(0);
+
+  const handlePassWord = (value: any) => {
+    const passWordStrength = {
+      length: 0,
+      upperCase: false,
+      lowerCase: false,
+      specChar: false,
+      number: false,
+    };
+    setPassWord(value);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +32,12 @@ export default function Home() {
       <main>
         <h1>Password strength</h1>
         <h2>Enter the password</h2>
-        <input></input>
+        <input
+          onChange={(e) => handlePassWord(e.target.value)}
+          type="password"
+          placeholder="Enter password please"
+          value={passWord}
+        ></input>
         <h3>test strength output:</h3>
       </main>
 
