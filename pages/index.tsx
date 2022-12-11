@@ -7,15 +7,46 @@ export default function Home() {
   const [passWord, setPassWord] = useState<string>("");
   const [strength, setStrength] = useState<number>(0);
 
+  const callReset = () => {
+    setPassWord("");
+    setStrength(0);
+  };
+
   const handlePassWord = (value: any) => {
-    const passWordStrength = {
-      length: 0,
-      upperCase: false,
-      lowerCase: false,
-      specChar: false,
-      number: false,
-    };
     setPassWord(value);
+    setStrength(0);
+
+    const atLeastOneUppercase = /[A-Z]/g; // capital letters from A to Z
+    const atLeastOneLowercase = /[a-z]/g; // small letters from a to z
+    const atLeastOneNumeric = /[0-9]/g; // numbers from 0 to 9
+    const atLeastOneSpecialChar = /[#?!@$%^&*-]/g; // any of the special characters within the square brackets
+    const eightCharsOrMore = /.{8,}/g; // eight characters or more
+
+    const passwordTracker = {
+      uppercase: passWord.match(atLeastOneUppercase),
+      lowercase: passWord.match(atLeastOneLowercase),
+      number: passWord.match(atLeastOneNumeric),
+      specialChar: passWord.match(atLeastOneSpecialChar),
+      eightCharsOrGreater: passWord.match(eightCharsOrMore),
+    };
+
+    if (passwordTracker.uppercase) {
+      setStrength((strength) => strength + 1);
+    }
+    if (passwordTracker.lowercase) {
+      setStrength((strength) => strength + 1);
+    }
+    if (passwordTracker.number) {
+      setStrength((strength) => strength + 1);
+    }
+    if (passwordTracker.specialChar) {
+      setStrength((strength) => strength + 1);
+    }
+    if (passwordTracker.eightCharsOrGreater) {
+      setStrength((strength) => strength + 1);
+    }
+
+    console.log(JSON.stringify(strength));
   };
 
   return (
@@ -38,7 +69,8 @@ export default function Home() {
           placeholder="Enter password please"
           value={passWord}
         ></input>
-        <h3>test strength output:</h3>
+        <h3>test strength output:{strength}</h3>
+        <button onClick={() => callReset()}>reset</button>
       </main>
 
       <footer className={styles.footer}>
