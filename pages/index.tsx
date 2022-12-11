@@ -6,15 +6,22 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   const [passWord, setPassWord] = useState<string>("");
   const [strength, setStrength] = useState<number>(0);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const callReset = () => {
     setPassWord("");
     setStrength(0);
   };
 
-  const handlePassWord = (value: any) => {
-    setPassWord(value);
-    setStrength(0);
+  const callVis = () => {
+    setVisible(!visible);
+  };
+
+  const handlePassWord = (value: any, e: any) => {
+    e.preventDefault();
+
+    const pw = value;
+    let tempStrength = 0;
 
     const atLeastOneUppercase = /[A-Z]/g; // capital letters from A to Z
     const atLeastOneLowercase = /[a-z]/g; // small letters from a to z
@@ -23,30 +30,31 @@ export default function Home() {
     const eightCharsOrMore = /.{8,}/g; // eight characters or more
 
     const passwordTracker = {
-      uppercase: passWord.match(atLeastOneUppercase),
-      lowercase: passWord.match(atLeastOneLowercase),
-      number: passWord.match(atLeastOneNumeric),
-      specialChar: passWord.match(atLeastOneSpecialChar),
-      eightCharsOrGreater: passWord.match(eightCharsOrMore),
+      uppercase: pw.match(atLeastOneUppercase),
+      lowercase: pw.match(atLeastOneLowercase),
+      number: pw.match(atLeastOneNumeric),
+      specialChar: pw.match(atLeastOneSpecialChar),
+      eightCharsOrGreater: pw.match(eightCharsOrMore),
     };
 
     if (passwordTracker.uppercase) {
-      setStrength((strength) => strength + 1);
+      tempStrength++;
     }
     if (passwordTracker.lowercase) {
-      setStrength((strength) => strength + 1);
+      tempStrength++;
     }
     if (passwordTracker.number) {
-      setStrength((strength) => strength + 1);
+      tempStrength++;
     }
     if (passwordTracker.specialChar) {
-      setStrength((strength) => strength + 1);
+      tempStrength++;
     }
     if (passwordTracker.eightCharsOrGreater) {
-      setStrength((strength) => strength + 1);
+      tempStrength++;
     }
 
-    console.log(JSON.stringify(strength));
+    setPassWord(value);
+    setStrength(tempStrength);
   };
 
   return (
@@ -64,11 +72,12 @@ export default function Home() {
         <h1>Password strength</h1>
         <h2>Enter the password</h2>
         <input
-          onChange={(e) => handlePassWord(e.target.value)}
-          type="password"
+          onChange={(e) => handlePassWord(e.target.value, e)}
+          type={visible ? "password" : "name"}
           placeholder="Enter password please"
           value={passWord}
         ></input>
+        <button onClick={() => callVis()}>vis</button>
         <h3>test strength output:{strength}</h3>
         <button onClick={() => callReset()}>reset</button>
       </main>
