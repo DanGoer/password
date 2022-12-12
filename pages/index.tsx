@@ -78,7 +78,22 @@ export default function Home() {
           value={passWord}
         ></input>
         <button onClick={() => callVis()}>vis</button>
-        <h3>test strength output:{strength}</h3>
+        <h3>
+          Password strength:
+          {strength === 0 ? (
+            <div>N/A</div>
+          ) : strength === 1 ? (
+            <div>Very Weak</div>
+          ) : strength === 2 ? (
+            <div>Weak</div>
+          ) : strength === 3 ? (
+            <div>Medium</div>
+          ) : strength === 4 ? (
+            <div>Strong </div>
+          ) : (
+            <div>Very Strong </div>
+          )}
+        </h3>
         <button onClick={() => callReset()}>reset</button>
       </main>
 
