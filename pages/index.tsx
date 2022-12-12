@@ -8,16 +8,19 @@ export default function Home() {
   const [strength, setStrength] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
 
-  const callReset = () => {
+  const callReset: () => void = () => {
     setPassWord("");
     setStrength(0);
   };
 
-  const callVis = () => {
+  const callVis: () => void = () => {
     setVisible(!visible);
   };
 
-  const handlePassWord = (value: any, e: any) => {
+  const handlePassWord: (
+    value: string,
+    e: React.SyntheticEvent<EventTarget>
+  ) => void = (value: string, e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
 
     const pw = value;
@@ -53,8 +56,8 @@ export default function Home() {
       tempStrength++;
     }
 
-    setPassWord(value);
     setStrength(tempStrength);
+    setPassWord(value);
   };
 
   return (
@@ -95,9 +98,9 @@ export default function Home() {
             ) : strength === 3 ? (
               <div>Medium</div>
             ) : strength === 4 ? (
-              <div>Strong </div>
+              <div>Strong</div>
             ) : (
-              <div>Very Strong </div>
+              <div>Very Strong</div>
             )}
           </h3>
           <button className={styles.buttonres} onClick={() => callReset()}>
