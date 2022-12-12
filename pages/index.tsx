@@ -68,33 +68,42 @@ export default function Home() {
         <link rel="icon" href="/D.svg" />
       </Head>
 
-      <main>
+      <main className={styles.main}>
         <h1>Password strength</h1>
         <h2>Enter the password</h2>
-        <input
-          onChange={(e) => handlePassWord(e.target.value, e)}
-          type={visible ? "password" : "name"}
-          placeholder="Enter password please"
-          value={passWord}
-        ></input>
-        <button onClick={() => callVis()}>vis</button>
-        <h3>
-          Password strength:
-          {strength === 0 ? (
-            <div>N/A</div>
-          ) : strength === 1 ? (
-            <div>Very Weak</div>
-          ) : strength === 2 ? (
-            <div>Weak</div>
-          ) : strength === 3 ? (
-            <div>Medium</div>
-          ) : strength === 4 ? (
-            <div>Strong </div>
-          ) : (
-            <div>Very Strong </div>
-          )}
-        </h3>
-        <button onClick={() => callReset()}>reset</button>
+        <section className={styles.section}>
+          <input
+            className={styles.input}
+            onChange={(e) => handlePassWord(e.target.value, e)}
+            type={visible ? "password" : "name"}
+            placeholder="Enter password please"
+            value={passWord}
+          ></input>
+          <button className={styles.buttonvis} onClick={() => callVis()}>
+            vis
+          </button>
+        </section>
+        <section className={styles.section}>
+          <h3 className={styles.h3}>
+            Password strength:
+            {strength === 0 ? (
+              <div>N/A</div>
+            ) : strength === 1 ? (
+              <div>Very Weak</div>
+            ) : strength === 2 ? (
+              <div>Weak</div>
+            ) : strength === 3 ? (
+              <div>Medium</div>
+            ) : strength === 4 ? (
+              <div>Strong </div>
+            ) : (
+              <div>Very Strong </div>
+            )}
+          </h3>
+          <button className={styles.buttonres} onClick={() => callReset()}>
+            reset
+          </button>
+        </section>
       </main>
 
       <footer className={styles.footer}>
